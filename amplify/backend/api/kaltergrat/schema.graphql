@@ -1,0 +1,10 @@
+type Product
+@model(subscriptions: null)
+{
+	id: ID!
+	name: String!
+	description: String
+	price: Float
+	userId: String
+	userName: String
+}

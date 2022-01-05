@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-kaltergrat-dev-73303-authRole",
+      "UnauthRoleArn": "arn:aws:iam::740474698301:role/amplify-kaltergrat-dev-73303-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::740474698301:role/amplify-kaltergrat-dev-73303-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-kaltergrat-dev-73303-deployment",
+      "UnauthRoleName": "amplify-kaltergrat-dev-73303-unauthRole",
+      "StackName": "amplify-kaltergrat-dev-73303",
+      "StackId": "arn:aws:cloudformation:us-east-2:740474698301:stack/amplify-kaltergrat-dev-73303/a1d62740-6e23-11ec-aa3a-06e3109d203e",
+      "AmplifyAppId": "d2nntbnmgnjv55"
+    }
+  }
+}

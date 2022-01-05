@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "kaltergrat",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\lupin\\Documents\\Workspace\\kaltergrat\\amplify\\backend\\api\\kaltergrat\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    }
+  }
+}
