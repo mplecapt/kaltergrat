@@ -3,8 +3,8 @@ type Product
 {
 	id: ID!
 	name: String!
-	description: String
-	price: Float
-	userId: String
-	userName: String
+	size: String!
+	type: String
+	subtype: String
+	alignment: String!
 }

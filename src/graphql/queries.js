@@ -6,10 +6,10 @@ export const getProduct = /* GraphQL */ `
     getProduct(id: $id) {
       id
       name
-      description
-      price
-      userId
-      userName
+      size
+      type
+      subtype
+      alignment
       createdAt
       updatedAt
     }
@@ -25,10 +25,10 @@ export const listProducts = /* GraphQL */ `
       items {
         id
         name
-        description
-        price
-        userId
-        userName
+        size
+        type
+        subtype
+        alignment
         createdAt
         updatedAt
       }
