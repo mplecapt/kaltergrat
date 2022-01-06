@@ -1,10 +1,51 @@
-type Product
+type Creature
 @model(subscriptions: null)
 {
 	id: ID!
 	name: String!
 	size: String!
-	type: String
+	type: String!
 	subtype: String
-	alignment: String!
+	align: String!
+	ac: Int!
+	hp: Int!
+	hitdie: String!
+	spd: String!
+	stats: Statblock!
+	savingThrows: Datablock[]
+	skills: Datablock[]
+	senses: Datablock[]
+	languages: Datablock[]
+	cr: Int!,
+	features: Datablock[]
+	actions: Datablock[]
+	reactions: Datablock[]
+	legendary: Datablock[]
+}
+
+type Datablock
+{
+	name: String!
+	val: String
+	atk: AtkAction
+}
+
+type AtkAction
+{
+	type: String!
+	toHit: Int!
+	reach: Int!
+	target: String!
+	dmg: String!
+	dmgType: String!
+}
+
+type Statblock
+{
+	str: Int
+	dex: Int
+	con: Int
+	int: Int
+	wis: Int
+	cha: Int
 }

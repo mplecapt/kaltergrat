@@ -203,3 +203,5 @@ const getAtk = a => {
 		</p>
 	);
 };
+
+export { TaperedRule };
