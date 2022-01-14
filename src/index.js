@@ -2,11 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
-import Statblock from './components/Statblock.js';
-import TestForm from './components/Testing';
 
 import Amplify from 'aws-amplify';
 import config from './aws-exports';
@@ -15,13 +12,7 @@ Amplify.configure(config);
 ReactDOM.render(
 	<React.StrictMode>
 		<Router>
-			<Routes>
-				<Route path="/kaltergrat" element={<App />}>
-					<Route path="statblock" element={<Statblock />} />
-					<Route path="testing" element={<TestForm />} />
-				</Route>
-				<Route path="*" element={<h1>:404</h1>} />
-			</Routes>
+			<App />
 		</Router>
 	</React.StrictMode>,
 	document.getElementById('root')

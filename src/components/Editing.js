@@ -1,8 +1,9 @@
 import './Statblock.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, useField, FieldArray } from 'formik';
 import { TaperedRule } from './Statblock';
 import { newCreatureInitialValues, formSchema, creatureAlign, creatureSize, creatureTypes, targetTypes, damageTypes, atkActionInit, atkTypes } from './StatblockFormConstants';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 function FormikTextInput({label, isProperty, ...props}) {
 	const [field, meta] = useField(props);
@@ -112,8 +113,8 @@ function PropertyBlockInput({name, canBeAnAttack, list, idx, ...props}) {
 
 	return (
 		<div className='property-block'>
-			<h4><input type='text-input' {...field1} placeholder='Name' /></h4>
-			<p><textarea {...field2} placeholder='Description...' /></p>
+			<h4><input type='text-input' {...field1} placeholder='Name' style={{width: '100%'}} /></h4>
+			<p><textarea {...field2} placeholder='Description...' style={{width: '100%'}} /></p>
 			{canBeAnAttack && (<>
 				{showAtk ? (<>
 					<button type='button' onClick={()=>{
@@ -138,21 +139,17 @@ function CategoryList({label, list, canBeAnAttack, ...props}) {
 			{label && <h3><label htmlFor={props.id || props.name}>{label}</label></h3>}
 			<FieldArray
 				name={props.name}
-				render={arrayHelpers => (
-					<>
-						{list && list.length > 0 ? (
-							list.map((f, index) => (
-								<div key={index}>
-									<PropertyBlockInput list={list} idx={index} canBeAnAttack={canBeAnAttack} name={`${props.name}[${index}]`} />
-									<button type='button' onClick={()=>{arrayHelpers.remove(index)}}> - </button>
-									<button type='button' onClick={()=>{arrayHelpers.insert(index+1, {name:'', val:''});}}> + </button>
-								</div>
-							))
-						) : (
-							<button type='button' onClick={()=>{arrayHelpers.push({name:'', val:''});}}> + </button>
-						)}
-					</>
-				)}
+				render={arrayHelpers => (<>
+					{list && list.length > 0 ? (
+						list.map((f, index) => (<div key={index}>
+							<PropertyBlockInput list={list} idx={index} canBeAnAttack={canBeAnAttack} name={`${props.name}[${index}]`} />
+							<button type='button' onClick={()=>{arrayHelpers.remove(index)}}> - </button>
+							<button type='button' onClick={()=>{arrayHelpers.insert(index+1, {name:'', val:''});}}> + </button>
+						</div>))
+					) : (
+						<button type='button' onClick={()=>{arrayHelpers.push({name:'', val:''});}}> + </button>
+					)}
+				</>)}
 			/>
 		</div>
 	)
@@ -163,8 +160,18 @@ function InlineDoubleText({name, style1, style2, placeholder1, placeholder2, add
 	const [descField] = useField(`${name}.val`);
 	return (
 		<div className='property-line'>
-			<input type='text' {...nameField} placeholder={placeholder1} style={style1 ? style1 : {width: '100px'}} />
-			<input type='text' {...descField} placeholder={placeholder2} style={style2 ? style2 : {width: '75px'}} />
+			<input type='text' {...nameField} placeholder={placeholder1} style={style1 ? style1 : {width: '65%'}} />
+			<input type='text' {...descField} placeholder={placeholder2} style={style2 ? style2 : {width: '20%'}} />
+			<button type='button' onClick={subLine}> - </button>
+			<button type='button' onClick={addLine}> + </button>
+		</div>
+	)
+}
+function InlineSingleText({name, addLine, subLine, ...props}) {
+	const [field] = useField(`${name}.name`);
+	return (
+		<div className='property-line'>
+			<input type='text' {...field} {...props} style={{width: '80%'}} />
 			<button type='button' onClick={subLine}> - </button>
 			<button type='button' onClick={addLine}> + </button>
 		</div>
@@ -190,11 +197,11 @@ function PropertyList({label, list, first, last, simple, ...props}) {
 									subLine={()=>{helper.remove(index)}}
 									addLine={()=>{helper.insert(index + 1, {name:'', val:''})}}
 								  />
-								: <div className='property-line'>
-									<PropertyLineTextInput name={`${props.name}[${index}]`} placeholder='Common' />
-									<button type='button' onClick={()=>{helper.remove(index)}}> - </button>
-									<button type='button' onClick={()=>{helper.insert(index + 1, {name:''})}}> + </button>
-								  </div>
+								: <InlineSingleText name={`${props.name}[${index}]`} 
+									placeholder='Common' 
+									subLine={()=>{helper.remove(index)}}
+									addLine={()=>{helper.insert(index + 1, {name:'', val:''})}}
+								  />
 							}
 						</div>))
 					) : (
@@ -206,16 +213,29 @@ function PropertyList({label, list, first, last, simple, ...props}) {
 	);
 }
 
-export default function TextForm() {
+export default function CreatureEditForm() {
+	let navigate = useNavigate();
+	let location = useLocation();
+
+	let { data } = useParams();
+	if (data)
+		data = deserialize(data);
+	else
+		data = newCreatureInitialValues;
+
 	return (
 		<Formik
-			initialValues={newCreatureInitialValues}
+			initialValues={data}
 			validationSchema={formSchema}
 			onSubmit={(values, { setSubmitting }) => {
 				setTimeout(() => {
-					let succ = JSON.stringify(values, null, 2);
-					alert(succ !== undefined ? 'Success' : 'Failure');
-					console.log(succ);
+					let cereal = serialize(values);
+					let Dcereal = deserialize(cereal);
+					console.log(cereal);
+					console.log(Dcereal);
+
+					navigate(`/share/${cereal}`, {state: {backgroundLocation: location}});
+
 					setSubmitting(false);
 				}, 400);
 			}}
@@ -250,14 +270,15 @@ export default function TextForm() {
 							</div>
 							<TaperedRule />
 							<PropertyList label='Saving Throws  ' list={values.savingThrows} name='savingThrows' first />
-							<PropertyList label='Skills  ' list={values.skills} name='skills' />
-							<PropertyList label='Senses  ' list={values.senses} name='senses' />
-							<PropertyList label='Languages  ' list={values.languages} name='languages' simple last />
-							<PropertyLineTextInput last label="Challenge" name="cr" style={st.smallText} />
+							<PropertyList first label='Skills  ' list={values.skills} name='skills' />
+							<PropertyList first label='Senses  ' list={values.senses} name='senses' />
+							<PropertyList first label='Languages  ' list={values.languages} name='languages' simple />
+							<PropertyLineTextInput first label="Challenge" name="cr" style={st.smallText} />
 						</div>
+						<TaperedRule />
+						<CategoryList label='Features' list={values.features} name='features' />
 					</div>
 					<div className='section-right'>
-						<CategoryList label='Features' list={values.features} name='features' />
 						<CategoryList label='Actions' list={values.actions} name='actions' canBeAnAttack />
 						<CategoryList label='Reactions' list={values.reactions} name='reactions' />
 						<CategoryList label='Legendary Actions' list={values.legendary} name='legendary' />
@@ -272,6 +293,39 @@ export default function TextForm() {
 	);
 }
 
+function ShareLink() {
+	const [clicked, setClicked] = useState(false);
+	const { link } = useParams();
+
+	const finalDest = `kaltergrat/view/${link}`;
+
+	useEffect(() => {
+		if (clicked)
+			setTimeout(() => {
+				setClicked(false);
+			}, 3000)
+	})
+
+	return (
+		<div style={{margin: '10px'}}>
+			<h2 style={{textAlign: 'left'}}>Here's you're statblock link</h2>
+			<textarea readOnly value={finalDest} style={{width: '100%', height: '210px'}} />
+			{clicked && <p style={{color: 'green', display: 'inline-block', marginRight: '10px'}}>Copied!</p>}
+			<button type='button' style={{display: 'inline-block', margin: '10px'}} onClick={()=>{setClicked(true); navigator.clipboard.writeText(finalDest)}}>Copy</button>
+		</div>
+	)
+}
+
+function serialize(obj) {
+	const msgBuffer = new TextEncoder().encode(JSON.stringify(obj));
+	return Array.from(msgBuffer).map(b => b.toString(36).padStart(2, '0')).join('');
+}
+
+function deserialize(msg) {
+	const intbuff = new Uint8Array(msg.match(/.{1,2}/g).map(byte => parseInt(byte, 36)))
+	return JSON.parse(new TextDecoder().decode(intbuff));
+}
+
 const st = {
 	smallText: {
 		width: '50px',
@@ -280,3 +334,5 @@ const st = {
 		borderColor: 'red'
 	}
 };
+
+export { serialize, deserialize, ShareLink }
