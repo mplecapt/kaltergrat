@@ -297,7 +297,7 @@ function ShareLink() {
 	const [clicked, setClicked] = useState(false);
 	const { link } = useParams();
 
-	const finalDest = `kaltergrat/view/${link}`;
+	const finalDest = `https://mplecapt.github.io/kaltergrat/view/${link}`;
 
 	useEffect(() => {
 		if (clicked)

@@ -10,13 +10,6 @@ function App() {
 
 	return (
 		<div>
-			<h1>Kaltergrat</h1>
-			<nav style={{
-					borderBottom: "solid 1px",
-					paddingBottom: "1rem"
-				}}
-			>
-			</nav>
 			<Routes location={state?.backgroundLocation || location}>
 				<Route path="/kaltergrat">
 					<Route index element={<Navigate to='/kaltergrat/create' />} />
