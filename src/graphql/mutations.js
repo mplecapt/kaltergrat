@@ -1,52 +1,187 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createProduct = /* GraphQL */ `
-  mutation CreateProduct(
-    $input: CreateProductInput!
-    $condition: ModelProductConditionInput
+export const createCreature = /* GraphQL */ `
+  mutation CreateCreature(
+    $input: CreateCreatureInput!
+    $condition: ModelCreatureConditionInput
   ) {
-    createProduct(input: $input, condition: $condition) {
+    createCreature(input: $input, condition: $condition) {
       id
       name
       size
       type
       subtype
-      alignment
+      align
+      ac
+      hp
+      hitdie
+      spd
+      stats {
+        str
+        dex
+        con
+        int
+        wis
+        cha
+      }
+      savingThrows {
+        name
+        val
+      }
+      skills {
+        name
+        val
+      }
+      senses {
+        name
+        val
+      }
+      languages {
+        name
+        val
+      }
+      cr
+      features {
+        name
+        val
+      }
+      actions {
+        name
+        val
+      }
+      reactions {
+        name
+        val
+      }
+      legendary {
+        name
+        val
+      }
       createdAt
       updatedAt
     }
   }
 `;
-export const updateProduct = /* GraphQL */ `
-  mutation UpdateProduct(
-    $input: UpdateProductInput!
-    $condition: ModelProductConditionInput
+export const updateCreature = /* GraphQL */ `
+  mutation UpdateCreature(
+    $input: UpdateCreatureInput!
+    $condition: ModelCreatureConditionInput
   ) {
-    updateProduct(input: $input, condition: $condition) {
+    updateCreature(input: $input, condition: $condition) {
       id
       name
       size
       type
       subtype
-      alignment
+      align
+      ac
+      hp
+      hitdie
+      spd
+      stats {
+        str
+        dex
+        con
+        int
+        wis
+        cha
+      }
+      savingThrows {
+        name
+        val
+      }
+      skills {
+        name
+        val
+      }
+      senses {
+        name
+        val
+      }
+      languages {
+        name
+        val
+      }
+      cr
+      features {
+        name
+        val
+      }
+      actions {
+        name
+        val
+      }
+      reactions {
+        name
+        val
+      }
+      legendary {
+        name
+        val
+      }
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteProduct = /* GraphQL */ `
-  mutation DeleteProduct(
-    $input: DeleteProductInput!
-    $condition: ModelProductConditionInput
+export const deleteCreature = /* GraphQL */ `
+  mutation DeleteCreature(
+    $input: DeleteCreatureInput!
+    $condition: ModelCreatureConditionInput
   ) {
-    deleteProduct(input: $input, condition: $condition) {
+    deleteCreature(input: $input, condition: $condition) {
       id
       name
       size
       type
       subtype
-      alignment
+      align
+      ac
+      hp
+      hitdie
+      spd
+      stats {
+        str
+        dex
+        con
+        int
+        wis
+        cha
+      }
+      savingThrows {
+        name
+        val
+      }
+      skills {
+        name
+        val
+      }
+      senses {
+        name
+        val
+      }
+      languages {
+        name
+        val
+      }
+      cr
+      features {
+        name
+        val
+      }
+      actions {
+        name
+        val
+      }
+      reactions {
+        name
+        val
+      }
+      legendary {
+        name
+        val
+      }
       createdAt
       updatedAt
     }

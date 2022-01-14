@@ -1,28 +1,3 @@
-type Creature
-@model(subscriptions: null)
-{
-	id: ID!
-	name: String!
-	size: String!
-	type: String!
-	subtype: String
-	align: String!
-	ac: Int!
-	hp: Int!
-	hitdie: String!
-	spd: String!
-	stats: Statblock!
-	savingThrows: Datablock[]
-	skills: Datablock[]
-	senses: Datablock[]
-	languages: Datablock[]
-	cr: Int!,
-	features: Datablock[]
-	actions: Datablock[]
-	reactions: Datablock[]
-	legendary: Datablock[]
-}
-
 type Datablock
 {
 	name: String!
@@ -48,4 +23,32 @@ type Statblock
 	int: Int
 	wis: Int
 	cha: Int
+}
+
+type Creature
+@model(subscriptions: null)
+@auth(rules: [
+	{ allow: public }
+])
+{
+	id: ID!
+	name: String!
+	size: String!
+	type: String!
+	subtype: String
+	align: String!
+	ac: Int!
+	hp: Int!
+	hitdie: String!
+	spd: String!
+	stats: Statblock!
+	savingThrows: [Datablock]
+	skills: [Datablock]
+	senses: [Datablock]
+	languages: [Datablock]
+	cr: Int!,
+	features: [Datablock]
+	actions: [Datablock]
+	reactions: [Datablock]
+	legendary: [Datablock]
 }
