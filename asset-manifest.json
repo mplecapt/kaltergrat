@@ -1,15 +1,13 @@
 {
   "files": {
     "main.css": "/kaltergrat/static/css/main.96cf8736.css",
-    "main.js": "/kaltergrat/static/js/main.a1ace46f.js",
-    "static/js/787.7bc0c7f0.chunk.js": "/kaltergrat/static/js/787.7bc0c7f0.chunk.js",
+    "main.js": "/kaltergrat/static/js/main.d9c93ebd.js",
     "index.html": "/kaltergrat/index.html",
     "main.96cf8736.css.map": "/kaltergrat/static/css/main.96cf8736.css.map",
-    "main.a1ace46f.js.map": "/kaltergrat/static/js/main.a1ace46f.js.map",
-    "787.7bc0c7f0.chunk.js.map": "/kaltergrat/static/js/787.7bc0c7f0.chunk.js.map"
+    "main.d9c93ebd.js.map": "/kaltergrat/static/js/main.d9c93ebd.js.map"
   },
   "entrypoints": [
     "static/css/main.96cf8736.css",
-    "static/js/main.a1ace46f.js"
+    "static/js/main.d9c93ebd.js"
   ]
 }
